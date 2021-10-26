@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping(path = "api/v1/role")
+@RequestMapping(path = "api/v1/roles")
 public class RoleController {
     @Setter(onMethod_ = @Autowired)
     private RoleService roleService;

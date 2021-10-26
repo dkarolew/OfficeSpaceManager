@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping(path = "api/v1/place")
+@RequestMapping(path = "api/v1/places")
 public class PlaceController {
     @Setter(onMethod_ = @Autowired)
     private PlaceService placeService;

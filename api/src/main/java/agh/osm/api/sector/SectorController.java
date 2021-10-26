@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping(path = "api/v1/sector")
+@RequestMapping(path = "api/v1/sectors")
 public class SectorController {
     @Setter(onMethod_ = @Autowired)
     private SectorService sectorService;
