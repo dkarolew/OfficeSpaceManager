@@ -16,7 +16,7 @@ public class TeamController {
     private TeamService teamService;
 
     @GetMapping
-    public List<Team> getUsers() {
-        return teamService.getUsers();
+    public List<Team> getTeams() {
+        return teamService.getTeams();
     }
 }

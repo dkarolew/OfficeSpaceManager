@@ -11,7 +11,7 @@ public class ReservationService {
     @Setter(onMethod_ = @Autowired)
     private ReservationRepository reservationRepository;
 
-    public List<Reservation> getUsers() {
+    public List<Reservation> getReservations() {
         return reservationRepository.findAll();
     }
 }

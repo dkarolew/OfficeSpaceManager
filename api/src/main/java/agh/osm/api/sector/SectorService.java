@@ -11,7 +11,7 @@ public class SectorService {
     @Setter(onMethod_ = @Autowired)
     private SectorRepository sectorRepository;
 
-    public List<Sector> getUsers() {
+    public List<Sector> getSectors() {
         return sectorRepository.findAll();
     }
 }

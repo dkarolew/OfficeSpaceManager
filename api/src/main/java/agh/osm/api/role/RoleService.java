@@ -11,7 +11,7 @@ public class RoleService {
     @Setter(onMethod_ = @Autowired)
     private RoleRepository roleRepository;
 
-    public List<Role> getUsers() {
+    public List<Role> getRoles() {
         return roleRepository.findAll();
     }
 }

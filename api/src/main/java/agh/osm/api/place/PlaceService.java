@@ -11,7 +11,7 @@ public class PlaceService {
     @Setter(onMethod_ = @Autowired)
     private PlaceRepository placeRepository;
 
-    public List<Place> getUsers() {
+    public List<Place> getPlaces() {
         return placeRepository.findAll();
     }
 }

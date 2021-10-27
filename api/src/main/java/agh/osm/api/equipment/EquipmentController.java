@@ -16,7 +16,7 @@ public class EquipmentController {
     private EquipmentService equipmentService;
 
     @GetMapping
-    public List<Equipment> getUsers() {
-        return equipmentService.getUsers();
+    public List<Equipment> getEquipment() {
+        return equipmentService.getEquipment();
     }
 }

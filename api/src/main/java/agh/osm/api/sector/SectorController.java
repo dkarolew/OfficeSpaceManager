@@ -16,7 +16,7 @@ public class SectorController {
     private SectorService sectorService;
 
     @GetMapping
-    public List<Sector> getUsers() {
-        return sectorService.getUsers();
+    public List<Sector> getSectors() {
+        return sectorService.getSectors();
     }
 }

@@ -11,7 +11,7 @@ public class EquipmentService {
     @Setter(onMethod_ = @Autowired)
     private EquipmentRepository equipmentRepository;
 
-    public List<Equipment> getUsers() {
+    public List<Equipment> getEquipment() {
         return equipmentRepository.findAll();
     }
 }

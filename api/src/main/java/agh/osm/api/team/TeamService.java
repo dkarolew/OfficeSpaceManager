@@ -11,7 +11,7 @@ public class TeamService {
     @Setter(onMethod_ = @Autowired)
     private TeamRepository teamRepository;
 
-    public List<Team> getUsers() {
+    public List<Team> getTeams() {
         return teamRepository.findAll();
     }
 }

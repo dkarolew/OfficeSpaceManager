@@ -16,7 +16,7 @@ public class PlaceController {
     private PlaceService placeService;
 
     @GetMapping
-    public List<Place> getUsers() {
-        return placeService.getUsers();
+    public List<Place> getPlaces() {
+        return placeService.getPlaces();
     }
 }

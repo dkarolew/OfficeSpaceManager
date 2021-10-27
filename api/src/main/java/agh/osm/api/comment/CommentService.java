@@ -11,7 +11,7 @@ public class CommentService {
     @Setter(onMethod_ = @Autowired)
     private CommentRepository commentRepository;
 
-    public List<Comment> getUsers() {
+    public List<Comment> getComments() {
         return commentRepository.findAll();
     }
 }
