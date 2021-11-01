@@ -17,7 +17,7 @@ const ReservationGrid = () => {
                 {items.map((item, index)=>{
                     return <Grid item xs={6} md={4}>
                         <div key={index} onClick={(e => setReserved({...reserved, [e.target.outerText] : !reserved[e.target.outerText]}))}>
-                            <Paper style={{backgroundColor: reserved[item] ? 'red' : 'green'}} elevation={5} key={index}>{item}</Paper>
+                            <Paper style={{backgroundColor: reserved[item] ? 'red' : 'green', textAlign: 'center'}} elevation={5} key={index}>{item}</Paper>
                         </div>
                     </Grid>
                 })}
