@@ -14,9 +14,13 @@ import javax.persistence.*;
 public class Team {
     @Id
     @Column(name = "TEAM_ID")
-    @SequenceGenerator(name = "TEAM_SEQ", sequenceName = "TEAM_SEQ", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "TEAM_SEQ")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
     private Long sectorId;
+
+    public Team(String name, Long sectorId) {
+        this.name = name;
+        this.sectorId = sectorId;
+    }
 }

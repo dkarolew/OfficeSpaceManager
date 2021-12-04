@@ -1,9 +1,8 @@
 import NavBar from "../components/NavBar";
 import Header from "../components/Header";
 import TwoPanelContainer from "../components/TwoPanelContainer";
-import ReservationGrid from "../components/ReservationGrid";
 import ReservationForm from "../components/ReservationForm";
-import SectorList from "../components/SectorList";
+import ReservationGridContainer from "../components/ReservationGridContainer";
 import React from "react";
 
 
@@ -14,10 +13,9 @@ const HomePage = () => {
             <NavBar />
             <Header />
             <TwoPanelContainer
-                leftPanel={<ReservationGrid/>}
+                leftPanel={<ReservationGridContainer/>}
                 rightPanel={<ReservationForm/>}
             />
-            <SectorList/>
         </div>
     )
 }

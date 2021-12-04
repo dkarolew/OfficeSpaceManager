@@ -1,0 +1,83 @@
+Table user {
+  user_id int [pk, increment]
+  first_name varchar
+  last_name varchar
+  email varchar
+  role_id int
+  team_id int 
+}
+
+Table team {
+  team_id int [pk]
+  name varchar
+  sector_id int
+}
+
+Table reservation {
+  reservation_id int [pk]
+  date_start datetime
+  date_end datetime
+  place_id int
+  user_id int
+}
+
+Table equipment {
+  equipment_id int [pk]
+  name varchar
+  type varchar
+  place_id int
+  reservation_id int
+}
+
+Table comment {
+  comment_id int [pk]
+  title datetime
+  description datetime
+  reservation_id int
+  user_id int
+}
+
+Table sector {
+  sector_id int [pk]
+  code varchar
+}
+
+Table place {
+  place_id int [pk]
+  number varchar
+  type varchar
+  sector_id int
+}
+
+Table role {
+  role_id int [pk]
+  type varchar
+}
+
+
+
+// > many-to-one; < one-to-many; - one-to-one
+
+Ref: user.user_id > reservation.user_id  
+Ref: user.role_id > role.role_id  
+Ref: user.team_id > team.team_id  
+
+Ref: team.team_id > sector.sector_id
+
+Ref: reservation.place_id > place.place_id
+
+Ref: equipment.reservation_id > reservation.reservation_id
+Ref: equipment.place_id > place.place_id
+
+Ref: comment.reservation_id > reservation.reservation_id
+Ref: comment.user_id > user.user_id
+
+Ref: place.sector_id > sector.sector_id
+
+
+
+
+
+
+
+

@@ -25,27 +25,27 @@ const LoginPage = () => {
             <h1 style={{margin: '80px', textAlign: 'center'}}>Office Space Manager</h1>
         </header>
             <div className='login-box'>
-            <form className='login-form' onSubmit={onSubmit}>
-                <div className='login-form-control'>
-                    <label>Login</label>
-                    <input
-                        type='text'
-                        placeholder='Enter login'
-                        value={login}
-                        onChange={(e) => setLogin(e.target.value)}/>
-                </div>
-                <div className='login-form-control'>
-                    <label>Password</label>
-                    <input
-                        type='password'
-                        placeholder='Enter password'
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}/>
-                </div>
+                <form className='login-form' onSubmit={onSubmit}>
+                    <div className='login-form-control'>
+                        <label>Login</label>
+                        <input
+                            type='text'
+                            placeholder='Enter login'
+                            value={login}
+                            onChange={(e) => setLogin(e.target.value)}/>
+                    </div>
+                    <div className='login-form-control'>
+                        <label>Password</label>
+                        <input
+                            type='password'
+                            placeholder='Enter password'
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}/>
+                    </div>
 
-                <input type='submit' value='Log in' className='btn btn-block'/>
-            </form>
-                </div>
+                    <input type='submit' value='Log in' className='btn btn-block'/>
+                </form>
+            </div>
         </>
     )
 }
