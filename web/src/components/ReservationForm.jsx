@@ -51,62 +51,56 @@ const ReservationForm = () => {
 
     return (
         <>
-            {2 > 1 ? (
-                <form className='add-form' onSubmit={onSubmit} style={{paddingTop: '80px'}}>
-                    <div className='form-control'>
-                        <label>From</label>
-                        <input
-                            type='date'
-                            value={fromDate}
-                            onChange={(e) => setFromDate(e.target.value)}
-                        />
-                    </div>
-                    <div className='form-control'>
-                        <label>To</label>
-                        <input
-                            type='date'
-                            value={toDate ? toDate : fromDate}
-                            min={fromDate}
-                            max={fromDate ? dateAfter7Days(fromDate) : ''}
-                            onChange={(e) => setToDate(e.target.value)}
-                        />
-                    </div>
-                    <div className='form-control'>
-                        <label>Team code</label>
-                        <input
-                            type='text'
-                            placeholder='Code'
-                            value={teamCode}
-                            onChange={(e) => setTeamCode(e.target.value)}
-                        />
-                    </div>
-                    <div className='form-control'>
-                        <label>Additional equipment</label>
-                        <Select
-                            multi={true}
-                            disabled={false}
-                            dropdownHeight={'100px'}
-                            onChange={(eq) => setEquipment(eq)}
-                            options={equipmentOptions}
-                            values={equipment}
-                        />
-                    </div>
-                    <div className='form-control form-control-check'>
-                        <label>Send reminder email</label>
-                        <input
-                            type='checkbox'
-                            checked={reminderEmail}
-                            value={reminderEmail}
-                            onChange={(e) => setReminderEmail(e.currentTarget.checked)}
-                        />
-                    </div>
-                    <input type='submit' value='Save reservation' className='btn btn-block' style={{color: 'black'}}/>
-                </form>
-            ) : (
-                <div style={{paddingTop: '80px'}}>
-                    <h1>Rendering...</h1>
+            <form className='add-form' onSubmit={onSubmit} style={{paddingTop: '80px'}}>
+                <div className='form-control'>
+                    <label>From</label>
+                    <input
+                        type='date'
+                        value={fromDate}
+                        onChange={(e) => setFromDate(e.target.value)}
+                    />
                 </div>
-            )}
+                <div className='form-control'>
+                    <label>To</label>
+                    <input
+                        type='date'
+                        value={toDate ? toDate : fromDate}
+                        min={fromDate}
+                        max={fromDate ? dateAfter7Days(fromDate) : ''}
+                        onChange={(e) => setToDate(e.target.value)}
+                    />
+                </div>
+                <div className='form-control'>
+                    <label>Team code</label>
+                    <input
+                        type='text'
+                        placeholder='Code'
+                        value={teamCode}
+                        onChange={(e) => setTeamCode(e.target.value)}
+                    />
+                </div>
+                <div className='form-control'>
+                    <label>Additional equipment</label>
+                    <Select
+                        multi={true}
+                        disabled={false}
+                        dropdownHeight={'100px'}
+                        onChange={(eq) => setEquipment(eq)}
+                        options={equipmentOptions}
+                        values={equipment}
+                    />
+                </div>
+                <div className='form-control form-control-check'>
+                    <label>Send reminder email</label>
+                    <input
+                        type='checkbox'
+                        checked={reminderEmail}
+                        value={reminderEmail}
+                        onChange={(e) => setReminderEmail(e.currentTarget.checked)}
+                    />
+                </div>
+                <input type='submit' value='Save reservation' className='btn btn-block' style={{background: 'black'}}/>
+            </form>
         </>
     )
 }

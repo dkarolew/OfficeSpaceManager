@@ -5,7 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.time.LocalDate;
 
 @Table
 @Entity
@@ -15,11 +15,17 @@ import java.util.Date;
 public class Reservation {
     @Id
     @Column(name = "RESERVATION_ID")
-    @SequenceGenerator(name = "RESERVATION_SEQ", sequenceName = "RESERVATION_SEQ", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "RESERVATION_SEQ")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Long placeId;
     private Long userId;
-    private Date dateStart;
-    private Date dateEnd;
+    private LocalDate dateStart;
+    private LocalDate dateEnd;
+
+    public Reservation(LocalDate dateStart, LocalDate dateEnd, Long userId, Long placeId) {
+        this.dateStart = dateStart;
+        this.dateEnd = dateEnd;
+        this.userId = userId;
+        this.placeId = placeId;
+    }
 }

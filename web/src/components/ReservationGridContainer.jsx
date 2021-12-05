@@ -1,6 +1,9 @@
 import Select from 'react-dropdown-select';
 import React, {useState} from 'react';
-import ReservationGrid from "./ReservationGrid";
+import GroundFloor from "./GroundFloor";
+import Floor1 from "./Floor1";
+import Floor2 from "./Floor2";
+import Floor3 from "./Floor3";
 
 const ReservationGridContainer = () => {
 
@@ -12,6 +15,21 @@ const ReservationGridContainer = () => {
     ];
     const [floor, setFloor] = useState(0);
 
+    const renderGridForFloor = (floor) => {
+        switch(floor) {
+            case 0:
+                return <GroundFloor/>;
+            case 1:
+                return <Floor1/>;
+            case 2:
+                return <Floor2/>;
+            case 3:
+                return <Floor3/>;
+            default:
+                return <GroundFloor/>;
+        }
+    }
+
     return (
         <div style={{margin: '60px'}}>
             <h3 style={{textAlign: 'center'}}>RESERVATION GRID</h3>
@@ -22,9 +40,10 @@ const ReservationGridContainer = () => {
                     onChange={(floor) => setFloor(floor[0].value)}
                     options={floorsOptions}
                     value={floor}
+                    values={[]}
                 />
             </div>
-            <ReservationGrid floor={floor}/>
+            {renderGridForFloor(floor)}
         </div>
     )
 }
