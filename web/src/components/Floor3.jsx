@@ -18,7 +18,6 @@ const Floor3 = () => {
         "P22" : false, "P23" : true, "P24" : false});
 
     // const rooms = ['ROOM 1', 'ROOM 2', 'ROOM 3', 'ROOM 4'];
-    const [test, setTest] = useState(false);
 
     return (
         <div style={{paddingTop: '30px'}}>
@@ -31,7 +30,8 @@ const Floor3 = () => {
                                     {!freeSpace.includes(item) && item}
                                 </Paper>
                             </div>
-                        </Grid>)
+                        </Grid>
+                    )
                 })}
             </Grid>
         </div>

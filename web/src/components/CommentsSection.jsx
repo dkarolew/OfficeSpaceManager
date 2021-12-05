@@ -37,7 +37,7 @@ const CommentsSection = () => {
     const avatarUrl = "https://ui-avatars.com/api/name=Adam&background=random"
     const name = "xyz"
     let count = 0
-    comment.forEach(i => {count+=1; i.replies && i.replies.map(i=> count+=1)} )
+    comment.forEach(i => {count+=1; i.replies && i.replies.map(() => count+=1)} )
 
     return (
         <>

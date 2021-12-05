@@ -31,7 +31,8 @@ const GroundFloor = () => {
                                     {!freeSpace.includes(item) && item}
                                 </Paper>
                             </div>
-                        </Grid>)
+                        </Grid>
+                    )
                 })}
             </Grid>
             <div style={{paddingTop: '30px'}}>
