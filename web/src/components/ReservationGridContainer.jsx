@@ -14,19 +14,20 @@ const ReservationGridContainer = () => {
         { value: 3, label: 'Floor 3' },
     ];
     const [floor, setFloor] = useState(0);
+    const [date, setDate] = useState('')
 
     const renderGridForFloor = (floor) => {
         switch(floor) {
             case 0:
-                return <GroundFloor/>;
+                return <GroundFloor date={date}/>;
             case 1:
-                return <Floor1/>;
+                return <Floor1 date={date}/>;
             case 2:
-                return <Floor2/>;
+                return <Floor2 date={date}/>;
             case 3:
-                return <Floor3/>;
+                return <Floor3 date={date}/>;
             default:
-                return <GroundFloor/>;
+                return <GroundFloor date={date}/>;
         }
     }
 
@@ -41,6 +42,14 @@ const ReservationGridContainer = () => {
                     options={floorsOptions}
                     value={floor}
                     values={[]}
+                />
+            </div>
+            <div style={{paddingTop: '10px'}}>
+                <input
+                    type='date'
+                    style={{width: '30%'}}
+                    value={date}
+                    onChange={(e) => setDate(e.target.value)}
                 />
             </div>
             {renderGridForFloor(floor)}
