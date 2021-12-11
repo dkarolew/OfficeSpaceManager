@@ -4,6 +4,7 @@ import GroundFloor from "./GroundFloor";
 import Floor1 from "./Floor1";
 import Floor2 from "./Floor2";
 import Floor3 from "./Floor3";
+import TestFloor from "./Floor3";
 
 const ReservationGridContainer = () => {
 

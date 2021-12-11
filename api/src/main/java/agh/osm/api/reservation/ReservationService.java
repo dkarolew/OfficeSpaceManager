@@ -44,7 +44,7 @@ public class ReservationService {
         final var reminderEmail = reservationWsm.getReminderEmail();
 
         teamRepository.save(new Team(teamCode, 1L));
-        reservationRepository.save(new Reservation(fromDate, toDate, 1L, 1L));
+//        reservationRepository.save(new Reservation(fromDate, toDate, 1L, 1L));
 
         if (reminderEmail) {
             EmailMessage emailMessage = new EmailMessage("dawid.karolewski97@gmail.com", "Title", "Content...");
