@@ -14,8 +14,7 @@ import javax.persistence.*;
 public class Sector {
     @Id
     @Column(name = "SECTOR_ID")
-    @SequenceGenerator(name = "SECTOR_SEQ", sequenceName = "SECTOR_SEQ", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SECTOR_SEQ")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String code;
 }

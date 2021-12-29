@@ -14,11 +14,15 @@ import javax.persistence.*;
 public class Equipment {
     @Id
     @Column(name = "EQUIPMENT_ID")
-    @SequenceGenerator(name = "EQUIPMENT_SEQ", sequenceName = "EQUIPMENT_SEQ", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "EQUIPMENT_SEQ")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Long placeId;
     private Long reservationId;
-    private String name;
     private String type;
+
+    public Equipment(String type, Long placeId, Long reservationId) {
+        this.type = type;
+        this.placeId = placeId;
+        this.reservationId = reservationId;
+    }
 }

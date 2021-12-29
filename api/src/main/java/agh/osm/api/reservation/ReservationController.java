@@ -19,8 +19,23 @@ public class ReservationController {
         return reservationService.getReservations();
     }
 
+    @GetMapping("/{reservationId}/details")
+    public ReservationDetailsWsm getReservationWithDetails(@PathVariable Long reservationId) {
+        return reservationService.getReservationDetails(reservationId);
+    }
+
     @PostMapping
     public void saveReservation(@RequestBody ReservationWsm reservationWsm) {
         reservationService.createReservation(reservationWsm);
+    }
+
+    @PatchMapping("/{reservationId}")
+    public void updateReservation(@RequestBody ReservationWsm reservationWsm, @PathVariable Long reservationId) {
+        reservationService.updateReservation(reservationWsm, reservationId);
+    }
+
+    @DeleteMapping("/{reservationId}")
+    public void deleteReservation(@PathVariable Long reservationId) {
+        reservationService.deleteReservation(reservationId);
     }
 }

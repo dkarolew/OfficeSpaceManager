@@ -4,6 +4,7 @@ import Select from 'react-dropdown-select';
 
 const ReservationForm = () => {
 
+    const [place, setPlace] = useState('')
     const [fromDate, setFromDate] = useState('')
     const [toDate, setToDate] = useState('')
     const [teamCode, setTeamCode] = useState('')
@@ -29,13 +30,14 @@ const ReservationForm = () => {
     const onSubmit = (e) => {
         e.preventDefault()
 
-        if (!fromDate || !teamCode) {
+        if (!fromDate || !teamCode || !place) {
             alert('Please full fill reservation')
             return
         }
 
-        sendReservation({fromDate, toDate, teamCode, equipment, reminderEmail}).then(r => console.log(r))
+        sendReservation({place, fromDate, toDate, teamCode, equipment, reminderEmail}).then(r => console.log(r))
 
+        setPlace('')
         setFromDate('')
         setToDate('')
         setTeamCode('')
@@ -51,7 +53,16 @@ const ReservationForm = () => {
 
     return (
         <>
-            <form className='add-form' onSubmit={onSubmit} style={{paddingTop: '80px'}}>
+            <form className='add-form' onSubmit={onSubmit} style={{paddingTop: '120px'}}>
+                <div className='form-control'>
+                    <label>Place</label>
+                    <input
+                        type='text'
+                        placeholder='Place number'
+                        value={place}
+                        onChange={(e) => setPlace(e.target.value)}
+                    />
+                </div>
                 <div className='form-control'>
                     <label>From</label>
                     <input

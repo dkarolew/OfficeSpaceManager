@@ -1,5 +1,16 @@
 package agh.osm.api.place;
 
 public enum PlaceType {
-    DESK, ROOM
+    ROOM("ROOM"),
+    DESK("DESK");
+
+    private final String type;
+
+    PlaceType(final String type) {
+        this.type = type;
+    }
+
+    public String getType() {
+        return type;
+    }
 }

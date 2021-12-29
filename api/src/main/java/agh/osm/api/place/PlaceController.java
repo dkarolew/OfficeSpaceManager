@@ -3,10 +3,7 @@ package agh.osm.api.place;
 
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -20,5 +17,10 @@ public class PlaceController {
     @GetMapping
     public List<Place> getPlaces() {
         return placeService.getPlaces();
+    }
+
+    @GetMapping("/in/{date}")
+    public List<Place> getPlacesInDate(@PathVariable String date) {
+        return placeService.getPlacesInDate(date);
     }
 }

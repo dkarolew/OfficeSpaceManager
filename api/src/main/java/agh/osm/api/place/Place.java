@@ -14,11 +14,16 @@ import javax.persistence.*;
 public class Place {
     @Id
     @Column(name = "PLACE_ID")
-    @SequenceGenerator(name = "PLACE_SEQ", sequenceName = "PLACE_SEQ", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "PLACE_SEQ")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Long sectorId;
     private String number;
     @Enumerated(EnumType.STRING)
     private PlaceType type;
+    @Enumerated(EnumType.STRING)
+    private PlaceState state;
+
+    public void setState(PlaceState state) {
+        this.state = state;
+    }
 }

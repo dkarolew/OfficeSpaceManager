@@ -17,10 +17,8 @@ public class Team {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    private Long sectorId;
 
-    public Team(String name, Long sectorId) {
+    public Team(String name) {
         this.name = name;
-        this.sectorId = sectorId;
     }
 }

@@ -3,7 +3,7 @@ import {Cell, Legend, Pie, PieChart} from "recharts";
 
 const StatisticPanel = () => {
 
-    const place_colors = ["#bb0000", "#00bb00", "#0000bb", "#ffbb00"]
+    const place_colors = ["#bb0000", "#00bb00", "#000000", "#ffbb00"]
     const eq_colors = ["#bb00bb", "#ff7a71", "#612214"]
 
     const place_data = [

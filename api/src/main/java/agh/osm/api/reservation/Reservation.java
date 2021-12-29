@@ -21,11 +21,25 @@ public class Reservation {
     private Long userId;
     private LocalDate dateStart;
     private LocalDate dateEnd;
+    private boolean reminderEmail;
 
-    public Reservation(LocalDate dateStart, LocalDate dateEnd, Long userId, Long placeId) {
+    public Reservation(LocalDate dateStart, LocalDate dateEnd, Long userId, Long placeId, boolean reminderEmail) {
         this.dateStart = dateStart;
         this.dateEnd = dateEnd;
         this.userId = userId;
         this.placeId = placeId;
+        this.reminderEmail = reminderEmail;
+    }
+
+    public void setDateStart(LocalDate dateStart) {
+        this.dateStart = dateStart;
+    }
+
+    public void setDateEnd(LocalDate dateEnd) {
+        this.dateEnd = dateEnd;
+    }
+
+    public void setRemainderEmail(boolean reminderEmail) {
+        this.reminderEmail = reminderEmail;
     }
 }
