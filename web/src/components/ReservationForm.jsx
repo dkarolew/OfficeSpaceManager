@@ -10,6 +10,7 @@ const ReservationForm = () => {
     const [teamCode, setTeamCode] = useState('')
     const [equipment, setEquipment] = useState([])
     const [reminderEmail, setReminderEmail] = useState(false)
+    const [reservationError, setReservationError] = useState(false)
 
     const equipmentOptions = [
         { value: 'MONITOR', label: 'Monitor' },
@@ -24,6 +25,14 @@ const ReservationForm = () => {
                 'Content-type': 'application/json',
             },
             body: JSON.stringify(reservation),
+        }).then(response => {
+            if (response?.status === 500) {
+                setReservationError(true)
+            }
+            if (response?.status === 200) {
+                setReservationError(false)
+            }
+
         })
     }
 
@@ -110,6 +119,7 @@ const ReservationForm = () => {
                         onChange={(e) => setReminderEmail(e.currentTarget.checked)}
                     />
                 </div>
+                {reservationError && <p style={{color: 'darkred', paddingLeft: '50px', fontSize: '20px', fontWeight: 'bold'}}>Error during reservation!</p>}
                 <input type='submit' value='Save reservation' className='btn btn-block' style={{background: 'black'}}/>
             </form>
         </>

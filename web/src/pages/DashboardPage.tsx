@@ -98,7 +98,8 @@ const DashboardPage = () => {
                         <th>From</th>
                         <th>To</th>
                         <th>Place</th>
-                        <th>Team code</th>
+                        {/*<th>Team code</th>*/}
+                        {/*<th>Additional equipment</th>*/}
                         <th>Email notifications</th>
                     </tr>
                     </thead>
@@ -113,7 +114,8 @@ const DashboardPage = () => {
                                     'P' + reservationInfo[index]?.place.substring(4) :
                                     'R' + reservationInfo[index]?.place.substring(4)}
                                 </td>
-                                <td>{reservationInfo[index]?.teamCode}</td>
+                                {/*<td>{reservationInfo[index]?.teamCode}</td>*/}
+                                {/*<td>MONITOR, KEYBOARD</td>*/}
                                 <td>{reservationInfo[index]?.reminderEmail ? 'Yes' : 'No'}</td>
                             </tr>
                         )
