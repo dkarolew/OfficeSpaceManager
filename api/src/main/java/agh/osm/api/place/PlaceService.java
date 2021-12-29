@@ -28,20 +28,22 @@ public class PlaceService {
         List<Long> changedPlaces = new ArrayList<>();
 
         for (Reservation reservation : reservations) {
-            if (isWithinRange(LocalDate.parse(date), reservation.getDateStart(), reservation.getDateEnd())) {
-                placeRepository.update(reservation.getPlaceId(), PlaceState.BUSY);
-
-                places.stream()
-                        .filter(p -> p.getId().equals(reservation.getPlaceId()))
-                        .forEach(p -> p.setState(PlaceState.BUSY));
-                changedPlaces.add(reservation.getPlaceId());
-            } else {
-                if (!changedPlaces.contains(reservation.getPlaceId())) {
-                    placeRepository.update(reservation.getPlaceId(), PlaceState.FREE);
+            if (placeRepository.getPlaceById(reservation.getPlaceId()).getState() != PlaceState.DISABLED) {
+                if (isWithinRange(LocalDate.parse(date), reservation.getDateStart(), reservation.getDateEnd())) {
+                    placeRepository.update(reservation.getPlaceId(), PlaceState.BUSY);
 
                     places.stream()
                             .filter(p -> p.getId().equals(reservation.getPlaceId()))
-                            .forEach(p -> p.setState(PlaceState.FREE));
+                            .forEach(p -> p.setState(PlaceState.BUSY));
+                    changedPlaces.add(reservation.getPlaceId());
+                } else {
+                    if (!changedPlaces.contains(reservation.getPlaceId())) {
+                        placeRepository.update(reservation.getPlaceId(), PlaceState.FREE);
+
+                        places.stream()
+                                .filter(p -> p.getId().equals(reservation.getPlaceId()))
+                                .forEach(p -> p.setState(PlaceState.FREE));
+                    }
                 }
             }
         }

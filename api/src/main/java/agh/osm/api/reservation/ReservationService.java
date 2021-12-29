@@ -55,7 +55,8 @@ public class ReservationService {
         long placeNumber = Long.parseLong(place.substring(1));
         long placeId = placeRepository.getIdForGivenPlace(placeNumber, placeType);
 
-        if (placeRepository.getPlaceById(placeId).getState() == PlaceState.BUSY) {
+        if (placeRepository.getPlaceById(placeId).getState() == PlaceState.BUSY ||
+                placeRepository.getPlaceById(placeId).getState() == PlaceState.DISABLED) {
             throw new PlaceBusyException(String.format("Place with id %d is busy", placeId));
         }
 
