@@ -7,6 +7,8 @@ import Floor3 from "./Floor3";
 
 const ReservationGridContainer = () => {
 
+    const now = new Date().toISOString().substr(0, 10);
+
     const floorsOptions = [
         { value: 0, label: 'Ground floor' },
         { value: 1, label: 'Floor 1' },
@@ -14,7 +16,7 @@ const ReservationGridContainer = () => {
         { value: 3, label: 'Floor 3' },
     ];
     const [floor, setFloor] = useState(0);
-    const [date, setDate] = useState('')
+    const [date, setDate] = useState(now);
 
     const renderGridForFloor = (floor) => {
         switch(floor) {
