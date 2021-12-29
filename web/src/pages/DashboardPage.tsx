@@ -110,7 +110,7 @@ const DashboardPage = () => {
                                 <td>{reservation.id}</td>
                                 <td>{reservation.dateStart}</td>
                                 <td>{reservation.dateEnd}</td>
-                                <td>{reservationInfo[index]?.place ?
+                                <td>{reservationInfo[index]?.place.startsWith("DESK") ?
                                     'P' + reservationInfo[index]?.place.substring(4) :
                                     'R' + reservationInfo[index]?.place.substring(4)}
                                 </td>
