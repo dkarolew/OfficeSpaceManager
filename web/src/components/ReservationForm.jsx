@@ -119,7 +119,7 @@ const ReservationForm = () => {
                         onChange={(e) => setReminderEmail(e.currentTarget.checked)}
                     />
                 </div>
-                {reservationError && <p style={{color: 'darkred', paddingLeft: '50px', fontSize: '20px', fontWeight: 'bold'}}>Error during reservation!</p>}
+                {reservationError && <p style={{color: 'darkred', paddingLeft: '130px', fontSize: '20px', fontWeight: 'bold'}}>Error during reservation!</p>}
                 <input type='submit' value='Save reservation' className='btn btn-block' style={{background: 'black'}}/>
             </form>
         </>
