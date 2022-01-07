@@ -1,13 +1,16 @@
-import React, { useState } from 'react'
+import React, {useContext, useState} from 'react'
 import '../index.css'
 import Select from 'react-dropdown-select';
+import {UserContext} from "../utils/UserContext";
 
 const ReservationForm = () => {
+
+    // @ts-ignore
+    const {userInfo} = useContext(UserContext);
 
     const [place, setPlace] = useState('')
     const [fromDate, setFromDate] = useState('')
     const [toDate, setToDate] = useState('')
-    const [teamCode, setTeamCode] = useState('')
     const [equipment, setEquipment] = useState([])
     const [reminderEmail, setReminderEmail] = useState(false)
     const [reservationError, setReservationError] = useState(false)
@@ -32,24 +35,24 @@ const ReservationForm = () => {
             if (response?.status === 200) {
                 setReservationError(false)
             }
-
         })
     }
 
     const onSubmit = (e) => {
         e.preventDefault()
+        const userId = userInfo.userId;
+        const teamCode = userInfo.teamCode;
 
-        if (!fromDate || !teamCode || !place) {
+        if (!fromDate || !toDate || !place) {
             alert('Please full fill reservation')
             return
         }
 
-        sendReservation({place, fromDate, toDate, teamCode, equipment, reminderEmail}).then(r => console.log(r))
+        sendReservation({userId, place, fromDate, toDate, teamCode, equipment, reminderEmail})
 
         setPlace('')
         setFromDate('')
         setToDate('')
-        setTeamCode('')
         setEquipment([])
         setReminderEmail(false)
     }
@@ -91,15 +94,6 @@ const ReservationForm = () => {
                     />
                 </div>
                 <div className='form-control'>
-                    <label>Team code</label>
-                    <input
-                        type='text'
-                        placeholder='Code'
-                        value={teamCode}
-                        onChange={(e) => setTeamCode(e.target.value)}
-                    />
-                </div>
-                <div className='form-control'>
                     <label>Additional equipment</label>
                     <Select
                         multi={true}
@@ -119,7 +113,7 @@ const ReservationForm = () => {
                         onChange={(e) => setReminderEmail(e.currentTarget.checked)}
                     />
                 </div>
-                {reservationError && <p style={{color: 'darkred', paddingLeft: '130px', fontSize: '20px', fontWeight: 'bold'}}>Error during reservation!</p>}
+                {reservationError && <p style={{color: 'darkred', paddingLeft: '130px', fontSize: '20px', fontWeight: 'bold'}}>Error during reservation.</p>}
                 <input type='submit' value='Save reservation' className='btn btn-block' style={{background: 'black'}}/>
             </form>
         </>

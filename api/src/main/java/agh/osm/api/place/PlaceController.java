@@ -23,4 +23,9 @@ public class PlaceController {
     public List<Place> getPlacesInDate(@PathVariable String date) {
         return placeService.getPlacesInDate(date);
     }
+
+    @PatchMapping("/{place}")
+    public void updatePlace(@PathVariable String place) {
+        placeService.updatePlace(place);
+    }
 }

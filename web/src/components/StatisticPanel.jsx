@@ -1,42 +1,86 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import {Cell, Legend, Pie, PieChart} from "recharts";
+import axios from "axios";
 
 const StatisticPanel = () => {
 
-    const place_colors = ["#bb0000", "#00bb00", "#000000", "#ffbb00"]
-    const eq_colors = ["#bb00bb", "#ff7a71", "#612214"]
+    const place_colors = ["#bb0000", "#007700", "#000000"]
+    const eq_colors = ["#000077", "#ff6600", "#612214"]
+
+    const [places, setPlaces] = useState([]);
+    const [equipment, setEquipment] = useState([]);
+
+    const now = new Date().toISOString().substr(0, 10);
+
+    useEffect(() => {
+        fetchPlacesInDate(now);
+    }, [places, now])
+
+    useEffect(() => {
+        fetchCurrentEquipment();
+    }, [equipment])
+
+    const fetchPlacesInDate = async (date) => {
+        return axios.get(`http://localhost:8080/api/v1/places/in/${date}`)
+            .then(response => setPlaces(response.data));
+    }
+
+    const fetchCurrentEquipment = async () => {
+        return axios.get(`http://localhost:8080/api/v1/equipment/now`)
+            .then(response => setEquipment(response.data));
+    }
+
+    function filterFree(v) {
+        return v.state === 'FREE'
+    }
+
+    function filterReserved(v) {
+        return v.state === 'BUSY'
+    }
+
+    function filterDisabled(v) {
+        return v.state === 'DISABLED'
+    }
+
+    function filterMonitor(v) {
+        return v.type === 'MONITOR'
+    }
+
+    function filterKeyboard(v) {
+        return v.type === 'KEYBOARD'
+    }
+
+    function filterMouse(v) {
+        return v.type === 'MOUSE'
+    }
 
     const place_data = [
         {
             "name": "Reserved",
-            "value": 400
+            "value": places.filter(filterReserved).length
         },
         {
             "name": "Free",
-            "value": 350
+            "value": places.filter(filterFree).length
         },
         {
             "name": "Not available",
-            "value": 200
+            "value": places.filter(filterDisabled).length
         },
-        {
-            "name": "During reservation",
-            "value": 100
-        }
     ];
 
     const eq_data = [
         {
             "name": "Monitor",
-            "value": 13
+            "value": equipment.filter(filterMonitor).length
         },
         {
             "name": "Keyboard",
-            "value": 4
+            "value": equipment.filter(filterKeyboard).length
         },
         {
             "name": "Mouse",
-            "value": 7
+            "value": equipment.filter(filterMouse).length
         },
     ];
 

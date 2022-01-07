@@ -3,20 +3,26 @@ import Header from "../components/Header";
 import TwoPanelContainer from "../components/TwoPanelContainer";
 import ReservationForm from "../components/ReservationForm";
 import ReservationGridContainer from "../components/ReservationGridContainer";
-import React from "react";
+import React, {useContext} from "react";
+import {UserContext} from "../utils/UserContext";
+import LoginWrapper from "../components/LoginWrapper";
+import AdminForm from "../components/AdminForm";
 
 
 const HomePage = () => {
 
+    // @ts-ignore
+    const {userInfo} = useContext(UserContext);
+
     return (
-        <div>
-            <NavBar />
-            <Header />
+        <LoginWrapper isLoggedIn={userInfo.isLoggedIn}>
+            <NavBar/>
+            <Header/>
             <TwoPanelContainer
                 leftPanel={<ReservationGridContainer/>}
-                rightPanel={<ReservationForm/>}
+                rightPanel={userInfo.role === 'USER' ? <ReservationForm/> : <AdminForm/>}
             />
-        </div>
+        </LoginWrapper>
     )
 }
 

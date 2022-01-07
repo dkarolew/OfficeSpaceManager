@@ -10,6 +10,7 @@ const ControlPanel = () => {
     const [lastName, setLastName] = useState('')
     const [email, setEmail] = useState('')
     const [teamCode, setTeamCode] = useState('')
+    const [password, setPassword] = useState('')
     const [users, setUsers] = useState([])
     const [showRemoveUser, setShowRemoveUser] = useState(false)
 
@@ -26,17 +27,18 @@ const ControlPanel = () => {
     const onSubmit = (e) => {
         e.preventDefault()
 
-        if (!firstName || !lastName || !lastName || !teamCode) {
+        if (!firstName || !lastName || !lastName || !teamCode || !password) {
             alert('Please full fill user info')
             return
         }
 
-        addUser({firstName, lastName, email, teamCode}).then(r => console.log(r))
+        addUser({firstName, lastName, email, teamCode, password})
 
         setFirstName('')
         setLastName('')
         setEmail('')
         setTeamCode('')
+        setPassword('')
     }
 
     const fetchUsers = async () => {
@@ -115,6 +117,14 @@ const ControlPanel = () => {
                                 type='text'
                                 value={teamCode}
                                 onChange={(e) => setTeamCode(e.target.value)}
+                            />
+                        </div>
+                        <div className='form-control'>
+                            <label>Password</label>
+                            <input
+                                type='text'
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
                             />
                         </div>
                         <div style={{width: '70%', paddingLeft: '150px'}}>

@@ -1,10 +1,53 @@
-import React, {useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
+import {UserContext} from "../utils/UserContext";
 
 
 const LoginPage = () => {
 
     const [login, setLogin] = useState('');
     const [password, setPassword] = useState('');
+    const [loginError, setLoginError] = useState(false);
+    // @ts-ignore
+    const {setUserInfo} = useContext(UserContext);
+
+    useEffect(() => {
+        setUserInfo({
+            userId: '',
+            firstName: '',
+            lastName: '',
+            email: '',
+            teamCode: '',
+            role: '',
+            isLoggedIn: false})
+    }, [setUserInfo])
+
+    const logIn = async (credentials: { login: string, password: string }) => {
+        await fetch('http://localhost:8080/api/v1/auth/login', {
+            method: 'POST',
+            headers: {
+                'Content-type': 'application/json',
+            },
+            body: JSON.stringify(credentials),
+        }).then(response => {
+            if (response?.status === 500) {
+                setLoginError(true)
+            }
+            if (response?.status === 200) {
+                setLoginError(false)
+                response.json().then(r => {
+                    setUserInfo({
+                        userId: r.userId,
+                        firstName: r.firstName,
+                        lastName: r.lastName,
+                        email: r.email,
+                        teamCode: r.teamCode,
+                        role: r.role,
+                        isLoggedIn: true})
+                })
+                window.location.href = '/'
+            }
+        })
+    }
 
     const onSubmit = (e: { preventDefault: () => void; }) => {
         e.preventDefault()
@@ -14,16 +57,14 @@ const LoginPage = () => {
             return
         }
 
-        setLogin('')
-        setPassword('')
-        window.location.href = '/'
+        logIn({login, password})
     }
 
     return (
         <>
-        <header>
-            <h1 style={{margin: '80px', textAlign: 'center'}}>Office Space Manager</h1>
-        </header>
+            <header>
+                <h1 style={{margin: '80px', textAlign: 'center'}}>Office Space Manager</h1>
+            </header>
             <div className='login-box'>
                 <form className='login-form' onSubmit={onSubmit}>
                     <div className='login-form-control'>
@@ -45,6 +86,7 @@ const LoginPage = () => {
 
                     <input style={{background: 'black'}} type='submit' value='Log in' className='btn btn-block'/>
                 </form>
+                {loginError && <p style={{color: 'darkred', paddingLeft: '280px', paddingTop: '20px', fontSize: '22px', fontWeight: 'bold'}}>Invalid credentials.</p>}
             </div>
         </>
     )

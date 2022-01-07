@@ -21,4 +21,9 @@ public class EquipmentController {
     public List<Equipment> getEquipment() {
         return equipmentService.getEquipment();
     }
+
+    @GetMapping("/now")
+    public List<Equipment> getEquipmentForCurrentBusyPlaces() {
+        return equipmentService.getEquipmentForCurrentBusyPlaces();
+    }
 }

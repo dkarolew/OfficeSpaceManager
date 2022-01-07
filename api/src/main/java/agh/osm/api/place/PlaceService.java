@@ -51,6 +51,24 @@ public class PlaceService {
         return places;
     }
 
+    public void updatePlace(String place) {
+        long placeNumber = Long.parseLong(place.substring(1));
+        String placeType = getPlaceType(place).getType();
+        long placeId = placeRepository.getIdForGivenPlace(placeNumber, placeType);
+        Place p = placeRepository.getPlaceById(placeId);
+
+        if (p.getState().equals(PlaceState.FREE)) {
+            placeRepository.update(placeId, PlaceState.DISABLED);
+        }
+        if (p.getState().equals(PlaceState.DISABLED)) {
+            placeRepository.update(placeId, PlaceState.FREE);
+        }
+    }
+
+    PlaceType getPlaceType(String place) {
+        return place.startsWith("P") ? PlaceType.DESK : PlaceType.ROOM;
+    }
+
     boolean isWithinRange(LocalDate date, LocalDate start, LocalDate end) {
         return date.isAfter(start) && date.isBefore(end);
     }

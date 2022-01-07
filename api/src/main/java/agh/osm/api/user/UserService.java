@@ -1,26 +1,27 @@
 package agh.osm.api.user;
 
-import agh.osm.api.place.PlaceState;
+import agh.osm.api.email.EmailContentGenerator;
+import agh.osm.api.email.EmailMessage;
+import agh.osm.api.email.EmailService;
 import agh.osm.api.role.RoleType;
+import agh.osm.api.security.AuthenticationProvider;
 import agh.osm.api.team.Team;
 import agh.osm.api.team.TeamRepository;
-import lombok.Setter;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class UserService {
-    @Setter(onMethod_ = @Autowired)
     private final UserRepository userRepository;
     private final TeamRepository teamRepository;
+    private final EmailService emailService;
 
-    public UserService(UserRepository userRepository, TeamRepository teamRepository) {
+    public UserService(UserRepository userRepository, TeamRepository teamRepository, EmailService emailService) {
         this.userRepository = userRepository;
         this.teamRepository = teamRepository;
+        this.emailService = emailService;
     }
 
     public List<User> getUsers() {
@@ -33,9 +34,21 @@ public class UserService {
         String lastName = userWsm.getLastName();
         String email = userWsm.getEmail();
         String teamCode = userWsm.getTeamCode();
+        String rawPassword = userWsm.getPassword();
+        String encodedPassword = AuthenticationProvider.encode(rawPassword);
 
-        Team team = teamRepository.save(new Team(teamCode));
-        userRepository.save(new User(firstName, lastName, email, team.getId(), RoleType.USER.getType()));
+        Team team;
+
+        if (!isTeamCodeExist(teamCode)) {
+            team = teamRepository.save(new Team(teamCode));
+        } else {
+            team = getTeamByTeamCode(teamCode);
+        }
+
+        userRepository.save(new User(firstName, lastName, email, team.getId(), RoleType.USER.getType(), encodedPassword));
+
+        EmailMessage emailMessage = EmailContentGenerator.generateCreateAccountEmailMessage(firstName, email, rawPassword);
+        emailService.sendEmail(emailMessage);
     }
 
     @Transactional
@@ -50,5 +63,19 @@ public class UserService {
         }
 
         userRepository.deleteById(userId);
+    }
+
+    private Team getTeamByTeamCode(String teamCode) {
+        return teamRepository.findAll()
+                .stream()
+                .filter(team -> team.getName().equals(teamCode))
+                .findFirst()
+                .orElseThrow(() -> new RuntimeException("Team does not exist"));
+    }
+
+    private boolean isTeamCodeExist(String teamCode) {
+        return teamRepository.findAll()
+                .stream()
+                .anyMatch(team -> team.getName().equals(teamCode));
     }
 }

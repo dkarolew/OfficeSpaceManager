@@ -1,5 +1,6 @@
 package agh.osm.api.reservation;
 
+import agh.osm.api.email.EmailContentGenerator;
 import agh.osm.api.email.EmailMessage;
 import agh.osm.api.email.EmailService;
 import agh.osm.api.equipment.Equipment;
@@ -36,12 +37,15 @@ public class ReservationService {
         this.emailService = emailService;
     }
 
-    public List<Reservation> getReservations() {
-        return reservationRepository.findAll();
+    public List<Reservation> getReservations(Long userId) {
+        return reservationRepository.findAll().stream()
+                .filter(r -> r.getUserId().equals(userId))
+                .collect(Collectors.toList());
     }
 
     @Transactional
     public void createReservation(ReservationWsm reservationWsm) {
+        final var userId = reservationWsm.getUserId();
         final var place = reservationWsm.getPlace();
         final var fromDate = LocalDate.parse(reservationWsm.getFromDate());
         final var toDate = LocalDate.parse(reservationWsm.getToDate());
@@ -60,19 +64,22 @@ public class ReservationService {
             throw new PlaceBusyException(String.format("Place with id %d is busy", placeId));
         }
 
-        Reservation r = reservationRepository.save(new Reservation(fromDate, toDate, 1L, placeId, reminderEmail));
+        Reservation reservation = reservationRepository.save(new Reservation(fromDate, toDate, userId, placeId, reminderEmail));
         placeRepository.update(placeId, PlaceState.BUSY);
-        insertEquipment(equipments, placeId, r.getId());
+        insertEquipment(equipments, placeId, reservation.getId());
+
+        User user = userRepository.getById(userId);
+        String firstName = user.getFirstName();
+        String email = user.getEmail();
 
         if (reminderEmail) {
-            EmailMessage emailMessage = new EmailMessage("dawid.karolewski97@gmail.com", "Title", "Content...");
+            EmailMessage emailMessage = EmailContentGenerator.generateCreateReservationEmailMessage(firstName, email, place, fromDate, toDate, equipments);
             emailService.sendEmail(emailMessage);
         }
     }
 
     @Transactional
     public void updateReservation(ReservationWsm reservationWsm, Long reservationId) {
-        final var place = reservationWsm.getPlace();
         final var fromDate = LocalDate.parse(reservationWsm.getFromDate());
         final var toDate = LocalDate.parse(reservationWsm.getToDate());
         final var equipments = reservationWsm.getEquipment()

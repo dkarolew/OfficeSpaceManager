@@ -14,9 +14,9 @@ public class ReservationController {
     @Setter(onMethod_ = @Autowired)
     private ReservationService reservationService;
 
-    @GetMapping
-    public List<Reservation> getReservations() {
-        return reservationService.getReservations();
+    @GetMapping("/{userId}")
+    public List<Reservation> getReservations(@PathVariable Long userId) {
+        return reservationService.getReservations(userId);
     }
 
     @GetMapping("/{reservationId}/details")

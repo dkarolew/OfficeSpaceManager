@@ -1,11 +1,16 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import NavBar from "../components/NavBar";
 import CommentsSection from "../components/CommentsSection";
 import Select from "react-dropdown-select";
 import axios from "axios";
+import {UserContext} from "../utils/UserContext";
+import LoginWrapper from "../components/LoginWrapper";
 
 
 const DashboardPage = () => {
+
+    // @ts-ignore
+    const {userInfo} = useContext(UserContext);
 
     const [reservationId, setReservationId] = useState('')
     const [reservations, setReservations] = useState([])
@@ -51,7 +56,7 @@ const DashboardPage = () => {
             return
         }
 
-        updateReservation({fromDate, toDate, equipment, reminderEmail}, reservationId).then(r => console.log(r))
+        updateReservation({fromDate, toDate, equipment, reminderEmail}, reservationId)
 
         setReservationId('')
         setFromDate('')
@@ -61,8 +66,8 @@ const DashboardPage = () => {
         setShowModifyReservation(false)
     }
 
-    const fetchReservations = async () => {
-        return axios.get('http://localhost:8080/api/v1/reservations')
+    const fetchReservations = async (userId: number) => {
+        return axios.get(`http://localhost:8080/api/v1/reservations/${userId}`)
             .then(response => setReservations(response.data));
     }
 
@@ -75,7 +80,7 @@ const DashboardPage = () => {
     }
 
     useEffect(() => {
-        fetchReservations().then(r => console.log(r))
+        fetchReservations(userInfo.userId)
     }, [])
 
     useEffect(() => {
@@ -83,7 +88,7 @@ const DashboardPage = () => {
     }, [reservations])
 
     return (
-        <>
+        <LoginWrapper isLoggedIn={userInfo.isLoggedIn}>
             <NavBar />
             <div style={{paddingTop: '80px', paddingLeft: '30px'}}>
                 <h2 style={{textAlign: 'left'}}>DASHBOARD</h2>
@@ -213,7 +218,7 @@ const DashboardPage = () => {
                 )}
             </div>
             <CommentsSection/>
-        </>
+        </LoginWrapper>
     )
 }
 

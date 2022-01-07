@@ -1,5 +1,9 @@
 package agh.osm.api.report;
 
+import agh.osm.api.place.Place;
+import agh.osm.api.place.PlaceService;
+import agh.osm.api.place.PlaceState;
+import agh.osm.api.place.PlaceType;
 import org.springframework.stereotype.Service;
 
 import com.lowagie.text.*;
@@ -7,13 +11,36 @@ import com.lowagie.text.pdf.PdfWriter;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 
 @Service
 public class ReportGeneratorService {
 
+    private static final Integer REPORT_DAYS = 7;
+    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+    private final PlaceService placeService;
+
+    public ReportGeneratorService(PlaceService placeService) {
+        this.placeService = placeService;
+    }
 
     public void export(HttpServletResponse response) throws DocumentException, IOException {
+        LocalDate startDate = LocalDate.now();
+
+        List<String> dates = IntStream.iterate(0, i -> i + 1)
+                .limit(REPORT_DAYS)
+                .mapToObj(startDate::plusDays)
+                .collect(Collectors.toList())
+                .stream()
+                .map(date -> date.format(formatter))
+                .collect(Collectors.toList());
+
         Document document = new Document(PageSize.A4);
         PdfWriter.getInstance(document, response.getOutputStream());
 
@@ -27,39 +54,33 @@ public class ReportGeneratorService {
         Font fontParagraph = FontFactory.getFont(FontFactory.HELVETICA);
         fontParagraph.setSize(12);
 
-        Paragraph paragraph2 = new Paragraph(
-                "----------------------------------------\n" +
-                "Date: 07-04-2020\n" +
-                "Free desks: 10/30\n" +
-                "Free rooms: 1/4\n" +
-                "Additional equipment: \n" +
-                "- 4 x MONITOR \n" +
-                "- 1 x KEYBOARD\n" +
-                "----------------------------------------\n" +
-                "Date: 08-04-2020\n" +
-                "Free desks: 15/30\n" +
-                "Free rooms: 2/4\n" +
-                "Additional equipment: \n" +
-                "- 5 x MONITOR \n" +
-                "- 1 x KEYBOARD\n" +
-                "- 2 x MOUSE\n" +
-                "----------------------------------------\n" +
-                "Date: 09-04-2020\n" +
-                "Free desks: 11/30\n" +
-                "Free rooms: 0/4\n" +
-                "----------------------------------------\n" +
-                "Date: 10-04-2020\n" +
-                "Free desks: 6/30\n" +
-                "Free rooms: 3/4\n" +
-                "Additional equipment: \n" +
-                "- 1 x KEYBOARD\n" +
-                "- 2 x MOUSE\n" +
-                "----------------------------------------\n" +
-                "Date: 11-04-2020\n" +
-                "Free desks: 0/30\n" +
-                "Free rooms: 4/4\n" +
-                "Additional equipment: \n" +
-                "- 3 x MOUSE\n", fontParagraph);
+        StringBuilder builder = new StringBuilder();
+
+        for (String date : dates) {
+            List<Place> places = placeService.getPlacesInDate(date);
+            List<Place> desks = places.stream()
+                    .filter(p -> p.getType().equals(PlaceType.DESK))
+                    .collect(Collectors.toList());
+            List<Place> rooms = places.stream()
+                    .filter(p -> p.getType().equals(PlaceType.ROOM))
+                    .collect(Collectors.toList());
+
+            long freeDesks = desks.stream()
+                    .filter(r -> r.getState().equals(PlaceState.FREE))
+                    .count();
+            long allDesks = desks.size();
+            long freeRooms = rooms.stream()
+                    .filter(r -> r.getState().equals(PlaceState.FREE))
+                    .count();
+            long allRooms = rooms.size();
+
+            builder.append("----------------------------------------\n");
+            builder.append("Date: ").append(date).append("\n");
+            builder.append("Free desks: ").append(freeDesks).append("/").append(allDesks).append("\n");
+            builder.append("Free rooms: ").append(freeRooms).append("/").append(allRooms).append("\n");;
+        }
+
+        Paragraph paragraph2 = new Paragraph(builder.toString(), fontParagraph);
         paragraph2.setAlignment(Paragraph.ALIGN_LEFT);
 
         document.add(paragraph);

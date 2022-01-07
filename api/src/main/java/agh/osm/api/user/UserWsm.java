@@ -10,21 +10,29 @@ import java.util.Objects;
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class UserWsm {
+    private final Long userId;
     private final String firstName;
     private final String lastName;
     private final String email;
     private final String teamCode;
+    private final String role;
+    private final String password;
 
-    public UserWsm(@JsonProperty("firstName") String firstName, @JsonProperty("lastName") String lastName, @JsonProperty("email") String email, @JsonProperty("teamCode") String teamCode) {
+    public UserWsm(@JsonProperty("userId") Long userId, @JsonProperty("firstName") String firstName, @JsonProperty("lastName") String lastName, @JsonProperty("email") String email, @JsonProperty("teamCode") String teamCode, @JsonProperty("role") String role, @JsonProperty("password") String password) {
+        this.userId = userId;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.teamCode = teamCode;
+        this.role = role;
+        this.password = password;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public Long getUserId() {
+        return userId;
     }
+
+    public String getFirstName() { return firstName; }
 
     public String getLastName() {
         return lastName;
@@ -38,9 +46,15 @@ public class UserWsm {
         return teamCode;
     }
 
+    public String getRole() { return role; }
+
+    public String getPassword() {
+        return password;
+    }
+
     @Override
     public int hashCode() {
-        return Objects.hash(firstName, lastName, email, teamCode);
+        return Objects.hash(userId, firstName, lastName, email, teamCode, role, password);
     }
 
     @Override
@@ -48,16 +62,18 @@ public class UserWsm {
         if (this == obj) return true;
         if (obj == null || getClass() != obj.getClass()) return false;
         UserWsm that = (UserWsm) obj;
-        return Objects.equals(firstName, that.firstName) && Objects.equals(lastName, that.lastName) && Objects.equals(email, that.email)&& Objects.equals(teamCode, that.teamCode);
+        return Objects.equals(userId, that.userId) && Objects.equals(firstName, that.firstName) && Objects.equals(lastName, that.lastName) && Objects.equals(email, that.email) && Objects.equals(teamCode, that.teamCode) && Objects.equals(role, that.role) && Objects.equals(password, that.password);
     }
 
     @Override
     public String toString() {
-        return "ReservationWsm{" +
+        return "UserWsm{" +
+                "userId=" + userId +
                 "firstName=" + firstName +
                 ", lastName=" + lastName +
                 ", email=" + email +
                 ", teamCode=" + teamCode +
+                ", role=" + role +
                 "}";
     }
 }
