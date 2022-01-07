@@ -13,8 +13,8 @@ const DashboardPage = () => {
     const {userInfo} = useContext(UserContext);
 
     const [reservationId, setReservationId] = useState('')
-    const [reservations, setReservations] = useState([])
-    const [reservationInfo, setReservationInfo] = useState([])
+    const [reservations, setReservations] = useState<any[]>([])
+    const [reservationInfo, setReservationInfo] = useState<any[]>([])
     const [fromDate, setFromDate] = useState('')
     const [toDate, setToDate] = useState('')
     const [equipment, setEquipment] = useState([])
@@ -34,7 +34,7 @@ const DashboardPage = () => {
         return chooseDate.toISOString().split('T')[0];
     }
 
-    const updateReservation = async (reservation: { fromDate: string; toDate: string; equipment: any; reminderEmail: boolean; }, reservationId : string) => {
+    const updateReservation = async (reservation : any, reservationId : string) => {
         await fetch(`http://localhost:8080/api/v1/reservations/${reservationId}`, {
             method: 'PATCH',
             headers: {
@@ -81,7 +81,7 @@ const DashboardPage = () => {
 
     useEffect(() => {
         fetchReservations(userInfo.userId)
-    }, [])
+    }, [userInfo])
 
     useEffect(() => {
         reservations.forEach(r => fetchReservationDetails(r.id))
@@ -163,6 +163,7 @@ const DashboardPage = () => {
                                     multi={true}
                                     disabled={false}
                                     dropdownHeight={'100px'}
+                                    // @ts-ignore
                                     onChange={(eq) => setEquipment(eq)}
                                     options={equipmentOptions}
                                     values={equipment}
@@ -182,12 +183,12 @@ const DashboardPage = () => {
                     </div>
                     ) : (
                     <div style={{paddingTop: '20px'}}>
-                        <a
+                        <button
                             style={{background: 'darkblue', border: 'black', width: '250px', height: '40px'}}
                             className="btn btn-primary"
                             onClick={() => setShowModifyReservation(true)}>
                             Modify reservation
-                        </a>
+                        </button>
                     </div>
                 )}
                 {showDeleteReservation ? (
@@ -208,12 +209,12 @@ const DashboardPage = () => {
                     </div>
                 ) : (
                     <div style={{paddingTop: '20px'}}>
-                        <a
+                        <button
                             style={{background: 'darkred', border: 'black', width: '250px', height: '40px'}}
                             className="btn btn-primary"
                             onClick={() => setShowDeleteReservation(true)}>
                             Cancel reservation
-                        </a>
+                        </button>
                     </div>
                 )}
             </div>

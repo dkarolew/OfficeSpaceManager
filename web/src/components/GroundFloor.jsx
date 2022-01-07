@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from "react";
 import {Grid} from "@material-ui/core";
-// @ts-ignore
 import styled from "styled-components";
 import Paper from "@material-ui/core/Paper";
 import axios from "axios";

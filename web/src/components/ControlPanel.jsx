@@ -147,12 +147,12 @@ const ControlPanel = () => {
                 </div>
                 ) : (
                 <div style={{paddingTop: '30px'}}>
-                    <a
+                    <button
                         style={{width: '250px', background: 'darkblue', border: 'black'}}
                         className="btn btn-primary"
                         onClick={() => setShowAddUserFrom(true)}>
                         Add new user
-                    </a>
+                    </button>
                 </div>
             )}
             {showRemoveUser ? (
@@ -173,23 +173,23 @@ const ControlPanel = () => {
                 </div>
             ) : (
                 <div style={{paddingTop: '20px'}}>
-                    <a
+                    <button
                         style={{background: 'darkred', border: 'black', width: '250px', height: '40px'}}
                         className="btn btn-primary"
                         onClick={() => setShowRemoveUser(true)}>
                         Remove user
-                    </a>
+                    </button>
                 </div>
             )}
 
             <div style={{paddingTop: '20px'}}>
-                <a
+                <button
                     style={{background: 'black', border: 'black', width: '250px', height: '40px'}}
                     className="btn btn-primary"
                     href='http://localhost:8080/api/v1/reports/generate'
                     download>
                     Download reservation report
-                </a>
+                </button>
             </div>
         </div>
     )
