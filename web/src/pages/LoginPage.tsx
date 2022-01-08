@@ -63,7 +63,7 @@ const LoginPage = () => {
     return (
         <>
             <header>
-                <h1 style={{margin: '80px', textAlign: 'center'}}>Office Space Manager</h1>
+                <h1 style={{margin: '120px', textAlign: 'center', fontSize: '60px', paddingLeft: '20px'}}>Office Space Manager</h1>
             </header>
             <div className='login-box'>
                 <form className='login-form' onSubmit={onSubmit}>
@@ -83,10 +83,11 @@ const LoginPage = () => {
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}/>
                     </div>
-
-                    <input style={{background: 'black'}} type='submit' value='Log in' className='btn btn-block'/>
+                    <div style={{paddingLeft: '30px'}}>
+                        <input style={{background: 'black'}} type='submit' value='Log in' className='btn btn-block'/>
+                    </div>
                 </form>
-                {loginError && <p style={{color: 'darkred', paddingLeft: '280px', paddingTop: '20px', fontSize: '22px', fontWeight: 'bold'}}>Invalid credentials.</p>}
+                {loginError && <p style={{color: 'darkred', paddingLeft: '340px', paddingTop: '20px', fontSize: '22px', fontWeight: 'bold'}}>Invalid credentials.</p>}
             </div>
         </>
     )
