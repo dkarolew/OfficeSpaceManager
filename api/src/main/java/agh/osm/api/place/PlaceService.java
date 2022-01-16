@@ -159,7 +159,7 @@ public class PlaceService {
     long getSectorId(List<PlacePositionWsm> placePositionList) {
         String firstPlace = placePositionList.get(0).getPlace();
 
-        if (firstPlace.length() == 3) {
+        if (firstPlace.length() <= 3) {
             return 99;
         }
 
