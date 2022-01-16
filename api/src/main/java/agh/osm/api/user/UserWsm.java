@@ -17,8 +17,9 @@ public class UserWsm {
     private final String teamCode;
     private final String role;
     private final String password;
+    private final String expirationDate;
 
-    public UserWsm(@JsonProperty("userId") Long userId, @JsonProperty("firstName") String firstName, @JsonProperty("lastName") String lastName, @JsonProperty("email") String email, @JsonProperty("teamCode") String teamCode, @JsonProperty("role") String role, @JsonProperty("password") String password) {
+    public UserWsm(@JsonProperty("userId") Long userId, @JsonProperty("firstName") String firstName, @JsonProperty("lastName") String lastName, @JsonProperty("email") String email, @JsonProperty("teamCode") String teamCode, @JsonProperty("role") String role, @JsonProperty("password") String password, @JsonProperty("expirationDate") String expirationDate) {
         this.userId = userId;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -26,6 +27,7 @@ public class UserWsm {
         this.teamCode = teamCode;
         this.role = role;
         this.password = password;
+        this.expirationDate = expirationDate;
     }
 
     public Long getUserId() {
@@ -52,9 +54,11 @@ public class UserWsm {
         return password;
     }
 
+    public String getExpirationDate() { return expirationDate; }
+
     @Override
     public int hashCode() {
-        return Objects.hash(userId, firstName, lastName, email, teamCode, role, password);
+        return Objects.hash(userId, firstName, lastName, email, teamCode, role, password, expirationDate);
     }
 
     @Override
@@ -62,7 +66,7 @@ public class UserWsm {
         if (this == obj) return true;
         if (obj == null || getClass() != obj.getClass()) return false;
         UserWsm that = (UserWsm) obj;
-        return Objects.equals(userId, that.userId) && Objects.equals(firstName, that.firstName) && Objects.equals(lastName, that.lastName) && Objects.equals(email, that.email) && Objects.equals(teamCode, that.teamCode) && Objects.equals(role, that.role) && Objects.equals(password, that.password);
+        return Objects.equals(userId, that.userId) && Objects.equals(firstName, that.firstName) && Objects.equals(lastName, that.lastName) && Objects.equals(email, that.email) && Objects.equals(teamCode, that.teamCode) && Objects.equals(role, that.role) && Objects.equals(password, that.password) && Objects.equals(expirationDate, that.expirationDate);
     }
 
     @Override
@@ -74,6 +78,7 @@ public class UserWsm {
                 ", email=" + email +
                 ", teamCode=" + teamCode +
                 ", role=" + role +
+                ", expirationDate=" + expirationDate +
                 "}";
     }
 }

@@ -1,6 +1,5 @@
 import React, {useContext, useEffect, useState} from 'react';
 import NavBar from "../components/NavBar";
-import CommentsSection from "../components/CommentsSection";
 import Select from "react-dropdown-select";
 import axios from "axios";
 import {UserContext} from "../utils/UserContext";
@@ -218,7 +217,6 @@ const DashboardPage = () => {
                     </div>
                 )}
             </div>
-            <CommentsSection/>
         </LoginWrapper>
     )
 }

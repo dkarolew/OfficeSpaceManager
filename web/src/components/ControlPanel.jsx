@@ -6,13 +6,14 @@ const ControlPanel = () => {
 
     const [showAddUserFrom, setShowAddUserFrom] = useState(false);
     const [userId, setUserId] = useState('')
-    const [firstName, setFirstName] = useState('')
-    const [lastName, setLastName] = useState('')
-    const [email, setEmail] = useState('')
-    const [teamCode, setTeamCode] = useState('')
-    const [password, setPassword] = useState('')
-    const [users, setUsers] = useState([])
-    const [showRemoveUser, setShowRemoveUser] = useState(false)
+    const [firstName, setFirstName] = useState('');
+    const [lastName, setLastName] = useState('');
+    const [email, setEmail] = useState('');
+    const [teamCode, setTeamCode] = useState('');
+    const [password, setPassword] = useState('');
+    const [expirationDate, setExpirationDate] = useState('');
+    const [users, setUsers] = useState([]);
+    const [showRemoveUser, setShowRemoveUser] = useState(false);
 
     const addUser = async (user) => {
         await fetch('http://localhost:8080/api/v1/users', {
@@ -27,18 +28,19 @@ const ControlPanel = () => {
     const onSubmit = (e) => {
         e.preventDefault()
 
-        if (!firstName || !lastName || !lastName || !teamCode || !password) {
+        if (!firstName || !lastName || !lastName || !teamCode || !password || !expirationDate) {
             alert('Please full fill user info')
             return
         }
 
-        addUser({firstName, lastName, email, teamCode, password})
+        addUser({firstName, lastName, email, teamCode, password, expirationDate})
 
         setFirstName('')
         setLastName('')
         setEmail('')
         setTeamCode('')
         setPassword('')
+        setExpirationDate('')
     }
 
     const fetchUsers = async () => {
@@ -69,6 +71,7 @@ const ControlPanel = () => {
                     <th>First name</th>
                     <th>Last name</th>
                     <th>Email</th>
+                    <th>Expiration date</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -79,6 +82,7 @@ const ControlPanel = () => {
                             <td>{user.firstName}</td>
                             <td>{user.lastName}</td>
                             <td>{user.email}</td>
+                            <td>{user.expirationDate}</td>
                         </tr>
                     )
                 })}
@@ -125,6 +129,14 @@ const ControlPanel = () => {
                                 type='text'
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
+                            />
+                        </div>
+                        <div className='form-control'>
+                            <label>Expiration date</label>
+                            <input
+                                type='date'
+                                value={expirationDate}
+                                onChange={(e) => setExpirationDate(e.target.value)}
                             />
                         </div>
                         <div style={{width: '70%', paddingLeft: '150px'}}>
@@ -183,13 +195,13 @@ const ControlPanel = () => {
             )}
 
             <div style={{paddingTop: '20px'}}>
-                <button
+                <a
                     style={{background: 'black', border: 'black', width: '250px', height: '40px'}}
                     className="btn btn-primary"
                     href='http://localhost:8080/api/v1/reports/generate'
                     download>
                     Download reservation report
-                </button>
+                </a>
             </div>
         </div>
     )

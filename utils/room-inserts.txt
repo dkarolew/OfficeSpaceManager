@@ -1,0 +1,31 @@
+insert into place (place_id, sector_id, number, type, state) 
+	values (65, 99, 1, 'ROOM', 'FREE');
+insert into place (place_id, sector_id, number, type, state) 
+	values (66, 99, 2, 'ROOM', 'FREE');
+insert into place (place_id, sector_id, number, type, state) 
+	values (67, 99, 3, 'ROOM', 'FREE');
+insert into place (place_id, sector_id, number, type, state) 
+	values (68, 99, 4, 'ROOM', 'FREE');
+
+insert into place (place_id, sector_id, number, type, state) 
+	values (137, 1, 101, 'ROOM', 'FREE');
+insert into place (place_id, sector_id, number, type, state) 
+	values (138, 1, 102, 'ROOM', 'FREE');
+
+
+insert into place (place_id, sector_id, number, type, state) 
+	values (204, 2, 201, 'ROOM', 'FREE');
+insert into place (place_id, sector_id, number, type, state) 
+	values (205, 2, 202, 'ROOM', 'FREE');
+insert into place (place_id, sector_id, number, type, state) 
+	values (206, 2, 203, 'ROOM', 'FREE');
+insert into place (place_id, sector_id, number, type, state) 
+	values (207, 2, 204, 'ROOM', 'FREE');
+
+insert into place (place_id, sector_id, number, type, state) 
+	values (280, 3, 301, 'ROOM', 'FREE');
+insert into place (place_id, sector_id, number, type, state) 
+	values (281, 3, 302, 'ROOM', 'FREE');
+
+
+

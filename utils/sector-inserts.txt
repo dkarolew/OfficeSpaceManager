@@ -1,0 +1,8 @@
+insert into sector (sector_id, code) 
+	values (99, 'Ground floor');
+insert into sector (sector_id, code) 
+	values (1, 'Floor 1');
+insert into sector (sector_id, code) 
+	values (2, 'Floor 1');
+insert into sector (sector_id, code) 
+	values (3, 'Floor 3');

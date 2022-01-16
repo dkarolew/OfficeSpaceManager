@@ -1,0 +1,2 @@
+insert into user (user_id, first_name, last_name, email, team_id, role) 
+	values (1, 'admin', 'admin', 'admin@email.com', '1', 'ADMIN')

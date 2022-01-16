@@ -28,4 +28,9 @@ public class PlaceController {
     public void updatePlace(@PathVariable String place) {
         placeService.updatePlace(place);
     }
+
+    @PostMapping("/intelligent-reservation")
+    public void intelligentReservation(@RequestBody PlacePositionListWsm placePositionListWsm) {
+        placeService.intelligentReservation(placePositionListWsm);
+    }
 }

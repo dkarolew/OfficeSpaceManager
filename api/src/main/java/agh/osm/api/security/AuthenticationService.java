@@ -6,6 +6,8 @@ import agh.osm.api.user.UserRepository;
 import agh.osm.api.user.UserWsm;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+
 @Service
 public class AuthenticationService {
 
@@ -26,6 +28,10 @@ public class AuthenticationService {
                 .findFirst()
                 .orElseThrow(() -> new RuntimeException(String.format("User with %s login does not exist", inputLogin)));
 
+        if (user.getExpirationDate().isBefore(LocalDate.now())) {
+            throw new RuntimeException("Account has been expired");
+        }
+
         String encodedPassword = user.getPassword();
         if (!AuthenticationProvider.matches(inputPassword, encodedPassword)) {
             throw new RuntimeException("Wrong password");
@@ -33,6 +39,6 @@ public class AuthenticationService {
 
         String teamCode = teamRepository.getById(user.getTeamId()).getName();
 
-        return new UserWsm(user.getId(), user.getFirstName(), user.getLastName(), user.getEmail(), teamCode, user.getRole(), null);
+        return new UserWsm(user.getId(), user.getFirstName(), user.getLastName(), user.getEmail(), teamCode, user.getRole(), null, null);
     }
 }
