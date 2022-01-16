@@ -64,6 +64,8 @@ public class ReservationService {
             throw new PlaceBusyException(String.format("Place with id %d is busy", placeId));
         }
 
+        checkIfDateRangeOverlapsWithAnyReservation(fromDate, toDate);
+
         Reservation reservation = reservationRepository.save(new Reservation(fromDate, toDate, userId, placeId, reminderEmail));
         placeRepository.update(placeId, PlaceState.BUSY);
         insertEquipment(equipments, placeId, reservation.getId());
@@ -122,5 +124,14 @@ public class ReservationService {
 
     private void insertEquipment(List<EquipmentType> equipments, Long placeId, Long reservationId) {
         equipments.forEach(eq -> equipmentRepository.save(new Equipment(eq.getType(), placeId, reservationId)));
+    }
+
+    private void checkIfDateRangeOverlapsWithAnyReservation(LocalDate fromDate, LocalDate toDate) {
+        List<Reservation> reservations = reservationRepository.findAll();
+        for (Reservation reservation : reservations) {
+            if ((fromDate.isBefore(reservation.getDateEnd())) && (toDate.isAfter(reservation.getDateStart()))) {
+                throw new RuntimeException("Reservation overlaps with another reservation");
+            }
+        }
     }
 }
