@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: osm-web
+  name: osm-web
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app: osm-web
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: osm-web
+    spec:
+      containers:
+      - image: gcr.io/office-space-manager-349207/osm-web-gcp:v1
+        name: webapp
+        imagePullPolicy: Always
+        resources: {}
+        ports:
+          - containerPort: 3000
+status: {}
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: osm-web
+  labels:
+    run: osm-web
+spec:
+  ports:
+  - port: 3000
+    protocol: TCP
+  selector:
+    app: osm-web
+  type: LoadBalancer
