@@ -45,7 +45,7 @@ const ControlPanel = () => {
     }
 
     const fetchUsers = async () => {
-        return axios.get(API_BASE_URL + '/users');
+        return await axios.get(API_BASE_URL + '/users');
     }
 
     const removeUser = async (userId: string) => {
@@ -54,7 +54,7 @@ const ControlPanel = () => {
 
     useEffect(() => {
         fetchUsers().then(response => setUsers(response.data))
-    }, [users])
+    }, [])
 
     return (
         <div style={{paddingTop: '80px', paddingLeft: '30px'}}>
