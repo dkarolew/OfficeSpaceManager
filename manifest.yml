@@ -6,7 +6,7 @@ metadata:
     app: osm-api
   name: osm-api
 spec:
-  replicas: 5
+  replicas: 3
   selector:
     matchLabels:
       app: osm-api

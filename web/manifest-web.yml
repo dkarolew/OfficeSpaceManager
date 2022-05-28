@@ -6,7 +6,7 @@ metadata:
     app: osm-web
   name: osm-web
 spec:
-  replicas: 5
+  replicas: 2
   selector:
     matchLabels:
       app: osm-web
