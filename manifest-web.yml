@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
       - image: gcr.io/office-space-manager-349207/osm-web-gcp:v1
-        name: webapp
+        name: webapp2
         imagePullPolicy: Always
         resources: {}
         ports:
