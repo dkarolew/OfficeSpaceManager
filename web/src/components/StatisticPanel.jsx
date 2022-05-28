@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {Cell, Legend, Pie, PieChart} from "recharts";
 import axios from "axios";
+import {API_BASE_URL} from "../utils/constans";
 
 const StatisticPanel = () => {
 
@@ -21,12 +22,12 @@ const StatisticPanel = () => {
     }, [equipment])
 
     const fetchPlacesInDate = async (date) => {
-        return axios.get(`http://localhost:8080/api/v1/places/in/${date}`)
+        return axios.get(API_BASE_URL + `/places/in/${date}`)
             .then(response => setPlaces(response.data));
     }
 
     const fetchCurrentEquipment = async () => {
-        return axios.get(`http://localhost:8080/api/v1/equipment/now`)
+        return axios.get(API_BASE_URL + `/equipment/now`)
             .then(response => setEquipment(response.data));
     }
 

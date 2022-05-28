@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios';
 import {SectorWsm} from '../api/model'
+import {API_BASE_URL} from "../utils/constans";
 
 export interface SectorsStatusState {
     sectors: Array<SectorWsm>;
@@ -15,7 +16,7 @@ const initialState: SectorsStatusState = {
 }
 
 export const fetchSectors = createAsyncThunk('sectors/fetchSectors', async () => {
-    const response = await axios.get('http://localhost:8080/api/v1/sectors', {
+    const response = await axios.get(API_BASE_URL + '/sectors', {
         headers: {
             'Content-Type': 'application/json',
         }

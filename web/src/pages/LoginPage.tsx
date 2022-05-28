@@ -1,5 +1,6 @@
 import React, {useContext, useEffect, useState} from "react";
 import {UserContext} from "../utils/UserContext";
+import {API_BASE_URL} from "../utils/constans";
 
 
 const LoginPage = () => {
@@ -22,7 +23,7 @@ const LoginPage = () => {
     }, [setUserInfo])
 
     const logIn = async (credentials: { login: string, password: string }) => {
-        await fetch('http://localhost:8080/api/v1/auth/login', {
+        await fetch(API_BASE_URL + '/auth/login', {
             method: 'POST',
             headers: {
                 'Content-type': 'application/json',

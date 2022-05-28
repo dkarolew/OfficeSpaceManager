@@ -2,6 +2,7 @@ import React, {useContext, useState} from 'react'
 import '../index.css'
 import Select from 'react-dropdown-select';
 import {UserContext} from "../utils/UserContext";
+import {API_BASE_URL} from "../utils/constans";
 
 const ReservationForm = () => {
 
@@ -22,7 +23,7 @@ const ReservationForm = () => {
     ];
 
     const sendReservation = async (reservation) => {
-        await fetch('http://localhost:8080/api/v1/reservations', {
+        await fetch(API_BASE_URL + '/reservations', {
             method: 'POST',
             headers: {
                 'Content-type': 'application/json',

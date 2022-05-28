@@ -1,12 +1,13 @@
 import React, {useState} from 'react'
 import '../index.css'
+import {API_BASE_URL} from "../utils/constans";
 
 const AdminForm = () => {
 
     const [place, setPlace] = useState('')
 
     const updatePlace = async (place: string) => {
-        await fetch(`http://localhost:8080/api/v1/places/${place}`, {
+        await fetch(API_BASE_URL + `/places/${place}`, {
             method: 'PATCH',
             headers: {
                 'Content-type': 'application/json',

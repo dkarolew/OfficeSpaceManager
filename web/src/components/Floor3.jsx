@@ -4,6 +4,7 @@ import styled from "styled-components";
 import Paper from "@material-ui/core/Paper";
 import axios from "axios";
 import {UserContext} from "../utils/UserContext";
+import {API_BASE_URL} from "../utils/constans";
 
 
 const Floor3 = ({date}) => {
@@ -49,7 +50,7 @@ const Floor3 = ({date}) => {
 
 
     const addPlacesPositions = async (body) => {
-        await fetch('http://localhost:8080/api/v1/places/intelligent-reservation', {
+        await fetch(API_BASE_URL + '/places/intelligent-reservation', {
             method: 'POST',
             headers: {
                 'Content-type': 'application/json',
@@ -63,7 +64,7 @@ const Floor3 = ({date}) => {
     }, [places, date])
 
     const fetchPlacesInDate = async (date) => {
-        return axios.get(`http://localhost:8080/api/v1/places/in/${date}`)
+        return axios.get(API_BASE_URL + `/places/in/${date}`)
             .then(response => setPlaces(response.data));
     }
 

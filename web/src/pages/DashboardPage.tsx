@@ -4,6 +4,7 @@ import Select from "react-dropdown-select";
 import axios from "axios";
 import {UserContext} from "../utils/UserContext";
 import LoginWrapper from "../components/LoginWrapper";
+import {API_BASE_URL} from "../utils/constans";
 
 
 const DashboardPage = () => {
@@ -34,7 +35,7 @@ const DashboardPage = () => {
     }
 
     const updateReservation = async (reservation : any, reservationId : string) => {
-        await fetch(`http://localhost:8080/api/v1/reservations/${reservationId}`, {
+        await fetch(API_BASE_URL + `/reservations/${reservationId}`, {
             method: 'PATCH',
             headers: {
                 'Content-type': 'application/json',
@@ -44,7 +45,7 @@ const DashboardPage = () => {
     }
 
     const deleteReservation = async (reservationId: string) => {
-        await axios.delete(`http://localhost:8080/api/v1/reservations/${reservationId}`);
+        await axios.delete(API_BASE_URL + `/reservations/${reservationId}`);
     }
 
     const onSubmit = (e : any) => {
@@ -66,12 +67,12 @@ const DashboardPage = () => {
     }
 
     const fetchReservations = async (userId: number) => {
-        return axios.get(`http://localhost:8080/api/v1/reservations/${userId}`)
+        return axios.get(API_BASE_URL + `/reservations/${userId}`)
             .then(response => setReservations(response.data));
     }
 
     const fetchReservationDetails = async (reservationId: number) => {
-        return axios.get(`http://localhost:8080/api/v1/reservations/${reservationId}/details`)
+        return axios.get(API_BASE_URL + `/reservations/${reservationId}/details`)
             .then(response => {
                 // @ts-ignore
                 setReservationInfo(prev => [...prev, response.data]);

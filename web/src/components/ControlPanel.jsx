@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from "react";
 import axios from "axios";
+import {API_BASE_URL} from "../utils/constans";
 
 
 const ControlPanel = () => {
@@ -16,7 +17,7 @@ const ControlPanel = () => {
     const [showRemoveUser, setShowRemoveUser] = useState(false);
 
     const addUser = async (user) => {
-        await fetch('http://localhost:8080/api/v1/users', {
+        await fetch(API_BASE_URL + '/users', {
             method: 'POST',
             headers: {
                 'Content-type': 'application/json',
@@ -44,16 +45,15 @@ const ControlPanel = () => {
     }
 
     const fetchUsers = async () => {
-        return axios.get('http://localhost:8080/api/v1/users')
-            .then(response => setUsers(response.data));
+        return axios.get(API_BASE_URL + '/users');
     }
 
     const removeUser = async (userId: string) => {
-        await axios.delete(`http://localhost:8080/api/v1/users/${userId}`);
+        await axios.delete(API_BASE_URL + `/users/${userId}`);
     }
 
     useEffect(() => {
-        fetchUsers()
+        fetchUsers().then(response => setUsers(response.data))
     }, [users])
 
     return (
@@ -198,7 +198,7 @@ const ControlPanel = () => {
                 <a
                     style={{background: 'black', border: 'black', width: '250px', height: '40px'}}
                     className="btn btn-primary"
-                    href='http://localhost:8080/api/v1/reports/generate'
+                    href={API_BASE_URL + '/reports/generate'}
                     download>
                     Download reservation report
                 </a>
