@@ -12,7 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(path = "api/v1/roles")
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin
 public class RoleController {
     @Setter(onMethod_ = @Autowired)
     private RoleService roleService;

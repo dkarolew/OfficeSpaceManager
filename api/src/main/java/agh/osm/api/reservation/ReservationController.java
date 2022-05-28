@@ -9,7 +9,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(path = "api/v1/reservations")
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin
 public class ReservationController {
     @Setter(onMethod_ = @Autowired)
     private ReservationService reservationService;

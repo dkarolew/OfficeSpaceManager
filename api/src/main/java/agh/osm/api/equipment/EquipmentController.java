@@ -12,7 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(path = "api/v1/equipment")
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin
 public class EquipmentController {
     @Setter(onMethod_ = @Autowired)
     private EquipmentService equipmentService;

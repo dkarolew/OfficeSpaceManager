@@ -12,7 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(path = "api/v1/sectors")
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin
 public class SectorController {
     @Setter(onMethod_ = @Autowired)
     private SectorService sectorService;

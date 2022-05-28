@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(path = "api/v1/auth")
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin
 public class AuthenticationController {
     @Setter(onMethod_ = @Autowired)
     private AuthenticationService authenticationService;

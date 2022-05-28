@@ -12,7 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(path = "api/v1/teams")
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin
 public class TeamController {
     @Setter(onMethod_ = @Autowired)
     private TeamService teamService;
