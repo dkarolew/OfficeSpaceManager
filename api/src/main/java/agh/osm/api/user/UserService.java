@@ -36,7 +36,11 @@ public class UserService {
     }
 
     public List<User> getUsers() {
-        return userRepository.findAll();
+        return userRepository.findAll()
+                .stream()
+                .map(u -> new User(u.getId(), u.getFirstName(), u.getLastName(), u.getEmail(),
+                        u.getTeamId(), u.getRole(), "", u.getExpirationDate()))
+                .collect(Collectors.toList());
     }
 
     @Transactional
